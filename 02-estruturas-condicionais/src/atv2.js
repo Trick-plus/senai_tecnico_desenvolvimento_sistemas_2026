@@ -445,3 +445,6 @@ if (pontos>=70){
 }else{
     console.log(`O time esta na zona de rebaixamento.`)
 }*/
+
+
+console.log(`Teste para saber se o git ta funcionando mesmo`)
