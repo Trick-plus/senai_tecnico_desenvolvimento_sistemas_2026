@@ -12,14 +12,14 @@ while (senha !== "1234"){
 }
 if(tentativas>0){
     console.log('vc não tem mais tentativas')
-}else{console.log('senha correta')}*/
+}else{console.log('senha correta')}
 
 
 
 var Sn= 0
 var quantidade= 6
 var contador = 1
-/*
+
 while (contador <= quantidade){
     var nota = leia.questionFloat("digite a nota,"+contador)
     Sn = Sn + nota
@@ -27,9 +27,19 @@ while (contador <= quantidade){
 }
 var media = Sn/quantidade
 console.log("media:"+ media.toFixed(2) )
-*/
+
 for(var i= 0; cont <= quantidade; cont++){
     var nota= leia.question("Digite a nota:"+ cont + "")
     media  = Sn/quantidade+nota
     console.log("media:"+ media.toFixed(2) )
+}
+*/
+
+var Fn= false;
+while (Fn === false){
+    var nota = leia.question('Digite a nota,'+cont +":")
+    Sm= Sm + nota;
+    if(contador === 6){
+        Fn = true;
+    }
 }
