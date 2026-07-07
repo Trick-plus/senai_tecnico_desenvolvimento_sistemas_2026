@@ -32,14 +32,5 @@ for(var i= 0; cont <= quantidade; cont++){
     var nota= leia.question("Digite a nota:"+ cont + "")
     media  = Sn/quantidade+nota
     console.log("media:"+ media.toFixed(2) )
-}
-*/
+}*/
 
-var Fn= false;
-while (Fn === false){
-    var nota = leia.question('Digite a nota,'+cont +":")
-    Sm= Sm + nota;
-    if(contador === 6){
-        Fn = true;
-    }
-}
