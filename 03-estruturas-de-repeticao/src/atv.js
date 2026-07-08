@@ -261,21 +261,60 @@ while(contador <=Ndi){
         Nt = Sn
     }
     contador++
-}*/
+}
 
 // ==========================
 // 14° FATORIAL
 // ==========================
-
-var NumeroDigitado = leia.questionInt("Digite um numero:")
-var Lindo = NumeroDigitado
-var Nad = 0 
-var contador = 0
-while(contador < NumeroDigitado){
-    
-   
- contador++
+var nd = leia.questionInt('Digita um numero:')
+var fa = 1;
+for(var i= nd; i>0;i--){
+    fa *= i;
 }
+console.log(`O fatorial de ${nd} é ${fa.toFixed(2)}`)
 
 
 
+// =========================
+// 15° Decimal para binário
+// =========================
+var decimal = leia.questionInt('Digite um numero ai: ');
+var resto;
+var binario = '';
+if (decimal === 0) {
+    console.log('O numero em bi e: 0');
+} else {
+    while (decimal > 0) {
+        resto= decimal%2;
+        binario= resto+binario;
+        decimal= Math.floor(decimal / 2);
+    }
+    console.log(`O numero em bi e de: ${binario}`);
+}*/
+
+// =========================
+// 16° Média dos 10 estudantes
+// =========================
+var nomes = [];
+var medias = [];
+
+for (var i = 0; i < 2; i++) {
+    var nome = leia.question(`Digite os nomes ${i + 1}: `);
+    var Sn = 0;
+
+    for (var N = 0; N < 2; N++) {
+        var nota = leia.questionFloat(`Digite a nota ${N + 1} de ${nome}: `);
+        Sn += nota;
+    }
+    nomes.push(nome);
+    medias.push(Sn / 3);
+}
+var Maluno = nomes[0];
+var Mm = medias[0];
+for (var i = 1; i < medias.length; i++) {
+    if (medias[i] > Mm) {
+        Mm = medias[i];
+        Maluno = nomes[i];
+    }
+}
+console.log(`Melhor aluno foi o ${Maluno} com madia ${Mm.toFixed(2)}`);
