@@ -114,9 +114,9 @@ console.log(`O resto dos pares é de, ${Mn}`)
 // ==========================
 var contador = 0;
 
-while(Nd != 0){
+while(Nd !== 0){
     var Nd = leia.questionFloat("Para parar digite 0 mn:")
-    if(Nd > 100 || Nd<200){
+    if(Nd > 100 && Nd<200){
     contador++
     }
 }
@@ -290,7 +290,7 @@ if (decimal === 0) {
         decimal= Math.floor(decimal / 2);
     }
     console.log(`O numero em bi e de: ${binario}`);
-}*/
+}
 
 // =========================
 // 16° Média dos 10 estudantes
@@ -317,4 +317,8 @@ for (var i = 1; i < medias.length; i++) {
         Maluno = nomes[i];
     }
 }
-console.log(`Melhor aluno foi o ${Maluno} com madia ${Mm.toFixed(2)}`);
+console.log(`Melhor aluno foi o ${Maluno} com madia ${Mm.toFixed(2)}`);*/
+
+
+
+
