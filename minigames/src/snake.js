@@ -1,15 +1,16 @@
-import readline from 'readline';
+import readline from 'readline'
+
+
 const PAREDE = "⬜";
 const VAZIO = "⬛";
 const CABECA = "🟢";
 const CORPO = "🟩";
 const COMIDA = "🔴";
 
-const LARGURA = 30; // X
-const ALTURA = 15; // Y
-var velocidade = 150;
+const LARGURA = 60; // X
+const ALTURA = 40; // Y
 
-var cobraX = [10, 9, 8, 7];
+var cobraX = [4, 3, 2, 1];
 var cobraY = [7, 7, 7, 7];
 
 var comidaX = Math.floor(Math.random() * LARGURA);
@@ -24,16 +25,30 @@ process.stdin.setRawMode(true);
 process.stdin.resume();
 process.stdout.write("\x1b[?25l");
 process.stdin.on("keypress", (str, key) => {
-  if (key.name === "w" && direcao !== "w") direcao = "w";
-  if (key.name === "s" && direcao !== "s") direcao = "s";
-  if (key.name === "a" && direcao !== "a") direcao = "a";
-  if (key.name === "d" && direcao !== "d") direcao = "d";
+    console.log(str);
+    console.log(key);
 
-  if (key.name === "q") {
-    gameOver = true;
-  }
+if(key.name === "w" && direcao !== "w"){
+    direcao = "w"
+}
+
+if(key.name === "a" && direcao !== "a"){
+    direcao = "a"
+}
+
+if(key.name === "d" && direcao !== "d"){
+    direcao = "d"
+}
+
+if(key.name === "s" && direcao !== "s"){
+    direcao = "s"
+}
+
+   if(key.name === "q"){
+        gameOver === true;
+        process.exit();
+    }
 })
-
 
 function desenhar() {
   var tela = "";
@@ -70,77 +85,104 @@ function desenhar() {
   process.stdout.write("\x1b[H" + tela);
 }
 
-function sortearComida() {
-  var posicaoValida = false;
+function sortear(){
+var posicao = false;
 
-  while (posicaoValida === false) {
-    comidaX = Math.floor(Math.random() * LARGURA);
-    comidaY = Math.floor(Math.random() * ALTURA);
+while(posicao === false){
+comidaX = Math.floor(Math.random() * LARGURA)
+comidaY = Math.floor(Math.random() * ALTURA)
 
-    posicaoValida = true;
-    for (var i = 0; i < cobraX.length; i++) {
-      if (cobraX[i] === comidaX && cobraY[i] === comidaY) {
-        posicaoValida = false;
-      }
+posicao = true;
+for(var i = 0; i < cobraX.length; i++){
+    if(cobraX[i] === comidaX && cobraY[i] === comidaY){
+posicao = false;
     }
-  }
 }
 
-function moverCobrinha() {
-  var novaPosicaoX = cobraX[0];
-  var novaPosicaoY = cobraY[0];
+}
 
-  switch (direcao) {
+}
+
+function movimento(){
+var novaposicaox = cobraX[0];
+var novaposicaoy = cobraY[0];
+
+switch(direcao){
     case "w":
-      novaPosicaoY--;
-      break;
-    case "s":
-      novaPosicaoY++;
-      break;
-    case "a":
-      novaPosicaoX--;
-      break;
-    case "d":
-      novaPosicaoX++;
-      break;
-  }
+        novaposicaoy--;
+        break;
+        case "s":
+            novaposicaoy++
+            break;
+            case "a":
+                novaposicaox--;
+                break;
+                case "d":
+                    novaposicaox++;
+                    break;
 
-  // novaPosicaoX = (novaPosicaoX + LARGURA) % LARGURA;
-  // novaPosicaoY = (novaPosicaoY + ALTURA) % ALTURA;
 
-  if (novaPosicaoX < 0 || novaPosicaoX >= LARGURA || novaPosicaoY < 0 || novaPosicaoY >= ALTURA) {
-    gameOver = true;
-    return;
-  }
+}
 
-  for (var i = 0; i < cobraX.length; i++) {
-    if (novaPosicaoX === cobraX[i] && novaPosicaoY === cobraY[i]) {
-      gameOver = true;
-      return;
+// if(novaposicaox < 0 || novaposicaox >= LARGURA || novaposicaoy <0 || novaposicaoy >= ALTURA){
+//     gameOver = true;
+//     return;
+// }
+
+if(novaposicaox < 0){
+    novaposicaox = LARGURA -1
+}
+
+if(novaposicaox >= LARGURA ){
+    novaposicaox = 0;
+}
+
+if(novaposicaoy < 0){
+    novaposicaoy = ALTURA -1
+}
+
+if(novaposicaoy >= ALTURA ){
+    novaposicaoy = 0;
+}
+
+for(var i = 0; i < cobraX.length; i++){
+    if(novaposicaox === cobraX[i] && novaposicaoy === cobraY){
+        gameOver = true;
+        return;
     }
-  }
+}
 
-  cobraX.unshift(novaPosicaoX);
-  cobraY.unshift(novaPosicaoY);
 
-  if (novaPosicaoX === comidaX && novaPosicaoY === comidaY) {
-    pontos += 10;
-    sortearComida();
-  } else {
-    cobraX.pop();
-    cobraY.pop();
-  }
+
+cobraX.unshift(novaposicaox)
+cobraY.unshift(novaposicaoy)
+
+if(novaposicaox === comidaX && novaposicaoy === comidaY){
+    pontos+= 10;
+    sortear();
+}else{
+    cobraX.pop()
+cobraY.pop()
+}
+
+
 }
 
 var jogo = setInterval(() => {
-  if (gameOver === true) {
-    clearInterval(jogo);
-    process.stdout.write("\x1b[?25h")
-    console.log("\n=== SE FUDEU ===")
-    console.log("Pontuação final: " + pontos);
-    process.exit();
-  }
+    if(gameOver === true){
+        clearInterval(jogo);
+        process.stdout.write("\xb1[?")
+        console.log("\n=== PERDEU, ABUSADO ===")
+        console.log("Pontuação final : " + pontos)
+        process.exit();
+    }
+})
 
-  moverCobrinha();
-  desenhar();
-}, velocidade);
+setInterval(() => {
+    movimento();
+    desenhar();
+
+}, 0.000000000000000000000000001)
+
+sortear()
+desenhar();

@@ -1,7 +1,7 @@
 import leia from 'readline-sync';
 
 const partes = [
-  `
+    `
   +---+
   |   |
       |
@@ -9,23 +9,23 @@ const partes = [
       |
       |
 =========`,
-  `
-  +---+
-  |   |
-  O   |
-      |
-      |
-      |
-=========`,
-  `
+    `
   +---+
   |   |
   O   |
+      |
+      |
+      |
+=========`,
+    `
+  +---+
+  |   |
+  O   |
   |   |
       |
       |
 =========`,
-  `
+    `
   +---+
   |   |
   O   |
@@ -33,7 +33,7 @@ const partes = [
       |
       |
 =========`,
-  `
+    `
   +---+
   |   |
   O   |
@@ -41,7 +41,7 @@ const partes = [
       |
       |
 =========`,
-  `
+    `
   +---+
   |   |
   O   |
@@ -49,7 +49,7 @@ const partes = [
  /    |
       |
 =========`,
-  `
+    `
   +---+
   |   |
   O   |
@@ -59,72 +59,60 @@ const partes = [
 =========`,
 ];
 
-var palavras = [
-  "javascript", "computador", "programacao", "algoritmo", "variavel",
-  "funcao", "terminal", "internet", "logica", "senai", "teclado"
-]
-
-var letrasCertas = [];
+var palavra = ["cachorro","gato","passaro","peixe","coelho","hamster","tartaruga","porquinho-da-india","papagaio","cavalo","vaca","ovelha","porco","galinha","pato","ganso","cabra","camelo","leao","tigre","elefante","girafa","zebra","rinoceronte","hipopotamo","crocodilo","jacaré","tubarao","baleia","golfinho"];
+var letrasCorretas =[];
 var letrasErradas = [];
+var letra=[];
 var tentativas = 6;
 var venceu = false;
+var palavraS = palavra[Math.floor(Math.random() * palavra.length)];
 
-var palavraSecreta = palavras[Math.floor(Math.random() * palavras.length)];
-console.log(palavraSecreta);
-
-function desenhaForca(errors) {
-  console.log(partes[errors]);
+function desenharF(erros) {
+  console.log(partes[erros]);
 }
 
-while (tentativas > 0 && venceu === false) {
+while(tentativas > 0 && venceu===false) {
   console.clear();
-  console.log("=== JOGO DA FORCA ===");
-
-  desenhaForca(letrasErradas.length);
-
-  var palavraMontada = "";
-  for (var i = 0; i < palavraSecreta.length; i++) {
-    if (letrasCertas.includes(palavraSecreta[i])) {
-      palavraMontada += palavraSecreta[i] + " ";
-    } else {
-      palavraMontada += "_ "
+  console.log("===Jogo da forca===")
+  desenharF(letrasErradas.length);
+  var palavraM="";
+  for(var i= 0; i < palavraS.length; i++){
+    if(letrasCorretas.includes(palavraS[i])){
+      palavraM+=palavraS[i]+"";
+    }else{
+      palavraM += "_";
     }
   }
-
-  console.log("Palavra: " + palavraMontada);
-  console.log("Tentativas restantes: " + tentativas);
-  console.log("Letras erradas:" + letrasErradas.join(', '));
-  console.log();
-
-  var letra = leia.question("Digite uma letra: ").toLowerCase();
-
-  if (letra.length !== 1) {
-    console.log("Digite apenas uma letra.")
-    leia.question("Pressionar ENTER para continuar...")
-  } else if (letrasCertas.includes(letra) || letrasErradas.includes(letra)) {
-    console.log("Você já tentou essa letra.")
-    leia.question("Pressionar ENTER para continuar...")
-  } else if (palavraSecreta.includes(letra)) {
-    letrasCertas.push(letra);
-  } else {
-    letrasErradas.push(letra);
-    tentativas--;
-  }
-
-  venceu = true;
-  for (var i = 0; i < palavraSecreta.length; i++) {
-    if (letrasCertas.includes(palavraSecreta[i]) === false) {
-      venceu = false;
+console.log(`Palavra: ${palavraM}`)
+    console.log(`Tentativas: ${tentativas}`)
+    console.log(`letras erradas: ${letrasErradas}`)
+    var letra= leia.question(`Digite uma letra:`).toLowerCase();
+    if(letra.length !==1){
+      console.log(`Digite apenas uma letra`)
+      leia.question(`Aperta em ENTER`)
+    }else if(letrasCorretas.includes(letra)||letrasErradas.includes(letra)){
+    console.log('Voce ja tentou essa letra')
+    leia.question("Aperta em ENTER")
+    }else if(palavraS.includes(letra)){
+      letrasCorretas.push(letra);
+    }else{
+      letrasErradas.push(letra);
+      tentativas--;
     }
-  }
+    venceu=true;
+    for(var i = 0; i< palavraS.length; i++ ){
+      if(!letrasCorretas.includes(palavraS[i])){
+        venceu= false;
+      }
+
+    }
 }
-
 console.clear();
 console.log("=== JOGO DA FORCA ===");
-desenhaForca(letrasErradas.length);
-if (venceu === true) {
-  console.log("PARABÉNS, VOCÊ VENCEU!!!")
-} else {
-  console.log("SE FUDEU");
-  console.log("A PALAVRA ERA: " + palavraSecreta)
+desenharF(letrasErradas.length);
+if(venceu===true){
+  console.log('Parabens pai')
+}else{
+  console.log('Perdeu')
+  console.log('A palavra era:'+palavraS)
 }
